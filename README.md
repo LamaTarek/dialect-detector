@@ -1,1 +1,1 @@
-## Arabic Dialect Identification 
+## Arabic Dialect Prediction 
