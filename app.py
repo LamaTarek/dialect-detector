@@ -5,7 +5,7 @@ import pickle
 app = Flask(__name__)
 
 # Load the model once when the app starts
-model_path = r'D:/nlp project/model/SVC_model.pkl'  
+model_path = r'model/SVC_model.pkl'  
 with open(model_path, 'rb') as file:
     model = pickle.load(file)
 
