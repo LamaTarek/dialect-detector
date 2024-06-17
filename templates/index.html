@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-    <title>Dialect Detector</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Dialect Detector</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font for Arabic Calligraphy -->
+    <link href="https://fonts.googleapis.com/css2?family=Gulzar&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <script>
         function clearPrediction() {
-            document.getElementById('prediction').innerText = '';
+            document.getElementById('prediction').style.display = 'none';
+        }
+
+        function addFocusStyle(element) {
+            element.style.borderColor = '#FDECDC';
+            element.style.boxShadow = '0 0 5px #FDECDC';
+        }
+
+        function removeFocusStyle(element) {
+            element.style.borderColor = '#FDECDC';
+            element.style.boxShadow = 'none';
         }
     </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Dialect Detector</h1>
-        <form action="/predict" method="post">
-            <textarea name="text" placeholder="Enter text here..." onfocus="clearPrediction()">{{ text if text else '' }}</textarea><br>
-            <input type="submit" value="Detect Dialect">
-        </form>
-        
-        {% if prediction %}
-        <h2 id="prediction">Predicted Dialect: {{ prediction }}</h2>
-        {% else %}
-        <h2 id="prediction"></h2>
-        {% endif %}
+    <div class="container-fluid d-flex align-items-center justify-content-center">
+        <div class="row w-100 no-gutters">
+            <div class="col-md-6 d-none d-md-block background", style="background-color: #FDECDC;"></div>
+            <div class="col-md-6 form-container">
+                <div class="form-content">
+                    <h1>كاشف اللهجة</h1>
+                    <form action="/predict" method="post">
+                        <div class="form-group">
+                            <textarea class="form-control" name="text" placeholder="أدخل النص هنا..." rows="5" onfocus="clearPrediction(); addFocusStyle(this);" onblur="removeFocusStyle(this);">{{ text if text else '' }}</textarea>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" class="btn btn-primary btn-block" value="كشف اللهجة">
+                        </div>
+                    </form>
+                    {% if prediction %}
+                    <div class="alert alert-success mt-3" id="prediction">
+                        اللهجة المتوقعة: {{ prediction }}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info mt-3" id="prediction" style="display: none;"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
